@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Medecine\hospitalmanagementdashboard\build\windows\CMakeFiles\533ba7f6398424a4d927420ed51acb30\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3810021E-5254-3715-B30C-46FDF5B63132}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
