@@ -22,39 +22,62 @@ class SideMenu extends StatelessWidget {
             press: () {},
           ),
           DrawerListTile(
-            title: "Pages",
+            title: "Patient",
             svgSrc: "assets/icons/page.svg",
             press: () {},
           ),
           DrawerListTile(
-            title: "Applications",
+            title: "Consultation",
             svgSrc: "assets/icons/application.svg",
             press: () {},
           ),
           DrawerListTile(
-            title: "UI Components",
+            title: "Salle d'attente",
             svgSrc: "assets/icons/ui.svg",
             press: () {},
           ),
           DrawerListTile(
-            title: "Widgets",
+            title: "Documents",
             svgSrc: "assets/icons/widget.svg",
             press: () {},
           ),
           DrawerListTile(
-            title: "Forms",
+            title: "Planing",
             svgSrc: "assets/icons/forms.svg",
             press: () {},
           ),
           DrawerListTile(
-            title: "Charts",
+            title: "Finance",
             svgSrc: "assets/icons/chart.svg",
             press: () {},
           ),
           DrawerListTile(
-            title: "Settings",
+            title: "Statistique",
             svgSrc: "assets/icons/menu_setting.svg",
-            press: () {},
+            press: () {
+              
+            },
+          ),
+          DrawerListTile(
+            title: "Note",
+            svgSrc: "assets/icons/menu_setting.svg",
+            press: () {
+              
+            },
+          ),
+          DrawerListTile(
+            title: "Parametre",
+            svgSrc: "assets/icons/menu_setting.svg",
+            press: () {
+              
+            },
+          ),
+          DrawerListTile(
+            title: "Aide",
+            svgSrc: "assets/icons/menu_setting.svg",
+            press: () {
+              
+            },
           ),
         ],
       ),

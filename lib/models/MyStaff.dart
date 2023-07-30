@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class StaffInfo {
   final String? pngSrc, title;
   final int? numOfPersons;

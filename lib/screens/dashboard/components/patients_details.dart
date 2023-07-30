@@ -29,7 +29,7 @@ class PatientsDetails extends StatelessWidget {
                   SizedBox(
                     height: 10.0,
                   ),
-                  SearchField(),
+                  SearchField(controller: TextEditingController()),
                 ],
               ),
             if (!Responsive.isMobile(context))
@@ -37,7 +37,8 @@ class PatientsDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(flex: 3, child: textView()),
-                  Expanded(flex: 5, child: SearchField())
+                  Expanded(flex: 5, child: SearchField(controller:  TextEditingController(),))
+                  
                 ],
               ),
             SizedBox(
