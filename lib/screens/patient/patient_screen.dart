@@ -137,6 +137,7 @@ class _PatientScreenState extends State<PatientScreen> {
                                                           child: IconButton(
                                                             onPressed: () {},
                                                             icon: Icon(Icons.delete),
+                                                            splashRadius: 20,
                                                             color: Color(0xFF2DAAB8),
                                                           ),
                                                         ),
@@ -145,6 +146,7 @@ class _PatientScreenState extends State<PatientScreen> {
                                                           child: IconButton(
                                                             onPressed: () {},
                                                             icon: Icon(Icons.edit),
+                                                            splashRadius: 20,
                                                             color: Color(0xFF2DAAB8),
                                                           ),
                                                         ),
