@@ -34,6 +34,7 @@ dependencies:
   data_table_2: ^2.1.1
   animated_size_and_fade: ^3.0.1
   flutter_sticky_header: ^0.6.5
+  circular_reveal_animation: ^2.0.1
 
 dev_dependencies:
   flutter_test:
