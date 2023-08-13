@@ -6,6 +6,8 @@ import 'package:hospital_dashboard/screens/patient/ajouter_patient.dart';
 import 'package:hospital_dashboard/screens/patient/all_patient.dart';
 import 'package:hospital_dashboard/screens/patient/patient_screen.dart';
 
+import '../../models/boxes.dart';
+import '../../models/patients.dart';
 import '../../responsive.dart';
 
 class MainScreen extends StatefulWidget {
@@ -25,7 +27,29 @@ class _MainScreenState extends State<MainScreen> {
     PatientScreen(),
     AllPatient(),
     Center(
-      child: Text("Consultation"),
+      child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView.builder(
+                    itemCount: boxPersonnes.length,
+                    itemBuilder: (context,index){
+                      Person person = boxPersonnes.getAt(index);
+                      return ListTile(
+                        leading: IconButton(onPressed: (){
+                         
+                        }, icon: const Icon(Icons.remove)
+                        ),
+                        title: Text(person.nom),
+                        subtitle: const Text("mot de passe"),
+                        trailing: Text('${person.age.toString()}'),
+                      );
+                    }),
+              ),
+            ),
+          ),
+      
     ),
     Center(
       child: Text("Salle d'attente"),

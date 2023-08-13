@@ -35,11 +35,14 @@ dependencies:
   animated_size_and_fade: ^3.0.1
   flutter_sticky_header: ^0.6.5
   circular_reveal_animation: ^2.0.1
+  hive: 
+  hive_flutter: 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  hive_generator:
+  build_runner:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
