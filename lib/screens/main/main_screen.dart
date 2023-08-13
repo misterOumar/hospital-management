@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hospital_dashboard/screens/consultation/consultaion.dart';
 import 'package:hospital_dashboard/screens/dashboard/dashboard_screen.dart';
 import 'package:hospital_dashboard/constants.dart';
 import 'package:hospital_dashboard/screens/patient/ajouter_patient.dart';
@@ -15,7 +16,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int currentPage = 0;
-
   List<Widget> listScreen = <Widget>[
     DashboardScreen(),
     Center(
@@ -24,9 +24,7 @@ class _MainScreenState extends State<MainScreen> {
     AjouterPatient(),
     PatientScreen(),
     AllPatient(),
-    Center(
-      child: Text("Consultation"),
-    ),
+    Consultation(),
     Center(
       child: Text("Salle d'attente"),
     ),
@@ -48,14 +46,13 @@ class _MainScreenState extends State<MainScreen> {
     Center(
       child: Text("Parametre"),
     ),
-   Center(
+    Center(
       child: Text("Aide"),
     ),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //key: context.read<MenuController>().scaffoldKey,
       drawer: sideBar(),
       body: SafeArea(
         child: Row(
