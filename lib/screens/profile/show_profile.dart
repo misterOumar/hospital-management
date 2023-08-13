@@ -352,10 +352,10 @@ class _ShowProfileState extends State<ShowProfile> {
                                                               child: SizedBox(
                                                                   width: 100,
                                                                   height: MediaQuery.of(context).size.height,
-                                                                  child: TextButton(
-                                                                    style: TextButton.styleFrom(
-                                                                        backgroundColor: Colors.blue[400]),
+                                                                  child: MaterialButton(
+                                                                    
                                                                     onPressed: () {},
+                                                                    color: Colors.blue[400],
                                                                     child: Row(
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment.spaceBetween,
