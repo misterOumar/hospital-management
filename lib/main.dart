@@ -1,36 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:hospital_dashboard/models/patients.dart';
 import 'package:hospital_dashboard/screens/main/main_screen.dart';
-import 'package:provider/provider.dart';
-
 import 'constants.dart';
-import 'controllers/MenuController.dart';
+import 'models/boxes.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(PersonAdapter());
+  boxPersonnes = await Hive.openBox<Person>('PatientBox');
+  runApp(MyApplication());
 }
 
-class MyApp extends StatelessWidget {
+class MyApplication extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Hospital Admin Panel',
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: bgColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,
       ),
       debugShowCheckedModeBanner: false,
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => MenuController(),
-          ),
-        ],
-        child: MainScreen(),
-      ),
+      home: MainScreen(),
     );
   }
 }

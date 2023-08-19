@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hospital_dashboard/controllers/MenuController.dart';
-import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../responsive.dart';
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
   const Header({
-    Key? key,
+    Key? key, required this.controller,
   }) : super(key: key);
 
+  final TextEditingController controller;
+
+  @override
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,13 +27,13 @@ class Header extends StatelessWidget {
           if (!Responsive.isDesktop(context))
             IconButton(
               icon: Icon(Icons.menu),
-              onPressed: context.read<MenuController>().controlMenu,
+              onPressed: null //context.read<MenuController>().controlMenu,
             ),
           if (!Responsive.isMobile(context))
             Expanded(
               child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: SearchField()),
+                  child: SearchField(controller: widget.controller,)),
             ),
           Spacer(),
           ProfileCard()
@@ -75,24 +80,35 @@ class ProfileCard extends StatelessWidget {
   }
 }
 
-class SearchField extends StatelessWidget {
+class SearchField extends StatefulWidget {
   const SearchField({
-    Key? key,
+    Key? key, required this.controller,
   }) : super(key: key);
 
+  final TextEditingController controller;
+
+  @override
+  State<SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<SearchField> {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50.0,
-      padding: EdgeInsets.symmetric(horizontal: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 0.0),
       decoration: BoxDecoration(
           color: bgColor, borderRadius: BorderRadius.circular(25.0)),
       child: Center(
         child: Row(
           children: [
-            Icon(Icons.search, color: hintColor),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Icon(Icons.search, color: hintColor),
+            ),
             Expanded(
               child: TextField(
+                controller: widget.controller,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration.collapsed(
                   hintText: "Search here...",

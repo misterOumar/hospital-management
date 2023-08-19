@@ -1,0 +1,15 @@
+Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      transitionDuration: Duration(milliseconds:800),
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: Offset(0.0, 1.0),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: MainPage(pageIndex: 4),
+                        );
+                      },
+                    ),
+                  );
