@@ -10,7 +10,8 @@ class Consultation extends StatefulWidget {
 class _ConsultationState extends State<Consultation> with TickerProviderStateMixin {
   late TabController _tabController;
   bool boolAddPatient = false;
-
+  
+  List<bool> checkBoxValue = [];
   List<String> formGroup = [
     'Antécédents',
     'Constantes Vitales',
@@ -102,6 +103,7 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
   @override
   void initState() {
     _tabController = TabController(length: 8, vsync: this);
+    checkBoxValue = List.generate(20, (index) => false);
     super.initState();
   }
 
@@ -258,24 +260,12 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                                             child: Row(
                                                                               mainAxisAlignment: MainAxisAlignment.center,
                                                                               children: <Widget>[
-                                                                                Padding(
-                                                                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                                                                  child: IconButton(
-                                                                                    onPressed: () {},
-                                                                                    icon: Icon(Icons.delete),
-                                                                                    splashRadius: 20,
-                                                                                    color: Color(0xFF2DAAB8),
-                                                                                  ),
-                                                                                ),
-                                                                                Padding(
-                                                                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                                                                  child: IconButton(
-                                                                                    onPressed: () {},
-                                                                                    icon: Icon(Icons.edit),
-                                                                                    splashRadius: 20,
-                                                                                    color: Color(0xFF2DAAB8),
-                                                                                  ),
-                                                                                ),
+                                                                                Checkbox(
+                                                                                  value: checkBoxValue[indexDataRows], onChanged: (onChangedValue){
+                                                                                      setState(() {
+                                                                                        checkBoxValue[indexDataRows] = !checkBoxValue[indexDataRows];
+                                                                                      });
+                                                                                  }),
                                                                               ],
                                                                             ),
                                                                           ),
@@ -303,6 +293,7 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                                   },
                                                                 ),
                                                                 onLongPress: () {},
+                                                                selected: false,
                                                               );
                                                             },
                                                           ),
