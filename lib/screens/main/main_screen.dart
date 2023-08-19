@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hospital_dashboard/screens/banqueDeDonnee/banqueDeDonnee.dart';
 import 'package:hospital_dashboard/screens/consultation/consultaion.dart';
 import 'package:hospital_dashboard/screens/dashboard/dashboard_screen.dart';
 import 'package:hospital_dashboard/constants.dart';
@@ -46,6 +47,7 @@ class _MainScreenState extends State<MainScreen> {
     Center(
       child: Text("Parametre"),
     ),
+    BanqueDeDonnee(),
     Center(
       child: Text("Aide"),
     ),
@@ -85,9 +87,9 @@ class _MainScreenState extends State<MainScreen> {
           ),
           buildMainTab("Tableau de bord", "assets/icons/menu_dashbord.svg", 0),
           buildMainTabWithSubTabs("Patient", "assets/icons/page.svg", 1, [
-            "Ajouter patient",
-            "Patient en attente",
-            "Liste des patients",
+            "Nouveau Patient",
+            "Liste Patient",
+            "Profil Patient",
           ]),
           buildMainTab("Consultation", "assets/icons/application.svg", 5),
           buildMainTab("Salle d'attente", "assets/icons/ui.svg", 6),
@@ -97,7 +99,8 @@ class _MainScreenState extends State<MainScreen> {
           buildMainTab("Statistiques", "assets/icons/menu_setting.svg", 10),
           buildMainTab("Notes", "assets/icons/chart.svg", 11),
           buildMainTab("Paramètres", "assets/icons/chart.svg", 12),
-          buildMainTab("Aide", "assets/icons/chart.svg", 13),
+          buildMainTab("Banque de donnée", "assets/icons/chart.svg", 13),
+          buildMainTab("Aide", "assets/icons/chart.svg", 14),
         ],
       ),
     );

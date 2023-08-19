@@ -47,6 +47,17 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
     Colors.blueGrey.withOpacity(0.7),
   ];
 
+  List<String> actionButtonValue = [
+    'Annuler',
+    'Valider',
+    'Imprimer',
+  ];
+  List<Color?> actionButtonColor = [
+     Colors.red,
+     Colors.green,
+     Colors.blueGrey.withOpacity(0.7),
+  ];
+
   List<IconData> tabBarIconValue = [
     Icons.info,
     Icons.info,
@@ -125,75 +136,6 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
               flex: 30,
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 10,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10.0),
-                              bottomRight: Radius.circular(10.0),
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        //width: MediaQuery.of(context).size.width,
-                                        //height: 50,
-                                        decoration: BoxDecoration(
-                                          color: Color.fromARGB(255, 45, 170, 184),
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(10.0),
-                                            bottomRight: Radius.circular(10.0),
-                                          ),
-                                        ),
-                                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                                        child: TabBar(
-                                          physics: const ScrollPhysics(),
-                                          indicatorColor: Colors.amber[200],
-                                          indicatorSize: TabBarIndicatorSize.tab,
-                                          indicatorWeight: 3.0,
-                                          isScrollable: true,
-                                          labelPadding: EdgeInsets.only(left: 40, right: 40),
-                                          controller: _tabController,
-                                          tabs: List.generate(tabBarContentValue.length, (indexTabBar) {
-                                            return Tab(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(tabBarIconValue[indexTabBar]),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(tabBarContentValue[indexTabBar]),
-                                                ],
-                                              ),
-                                            );
-                                          }),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   SizedBox(
                     height: 15,
                   ),
@@ -208,7 +150,7 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                           color: Colors.white,
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height - 110, //110,
+                            height: MediaQuery.of(context).size.height - 40, //110,
                             child: Column(
                               children: [
                                 Expanded(
@@ -216,9 +158,6 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                     controller: _tabController,
                                     physics: const ScrollPhysics(),
                                     children: [
-                                      Center(
-                                        child: Text("Infos"),
-                                      ),
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -237,15 +176,11 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                       child: MaterialButton(
                                                         onPressed: (crudButtonAction[indexActionButtonRow] == "Ajouter")
                                                             ? () {
-                                                                //showAddFormConsultation
                                                                 setState(() {
-                                                                  boolAddPatient = !boolAddPatient;
-
+                                                                  boolAddPatient = true;
                                                                 });
                                                               }
-                                                            : () {
-                                                                
-                                                              },
+                                                            : () {},
                                                         color: crudButtonColor[indexActionButtonRow],
                                                         shape: RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -458,12 +393,17 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                                                       ),
                                                                                       Container(
                                                                                         decoration: BoxDecoration(
-                                                                                          color: Colors.grey[300],
+                                                                                          color: Colors.grey[200],
                                                                                           borderRadius: BorderRadius.all(Radius.circular(8.0)),
                                                                                         ),
                                                                                         child: TextField(
-                                                                                          maxLines: 4,
+                                                                                          maxLines: 6,
                                                                                           decoration: InputDecoration(
+                                                                                            contentPadding: EdgeInsets.only(
+                                                                                                          left: 8,
+                                                                                                          top: 10,
+                                                                                                           bottom: 8,
+                                                                                                        ),
                                                                                             border: InputBorder.none,
                                                                                           ),
                                                                                         ),
@@ -480,144 +420,166 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                                           flex: 10,
                                                                           child: ListView(
                                                                             children: List.generate(constantesVitales.length, (indexConstantesVitales) {
-                                                                              
-                                                                              if (indexConstantesVitales != constantesVitales.length - 1){
+                                                                              if (indexConstantesVitales != constantesVitales.length - 1) {
                                                                                 return Padding(
-                                                                                padding: const EdgeInsets.only(left: 25),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.min,
-                                                                                  children: [
-                                                                                    Flexible(
-                                                                                      flex: 1,
-                                                                                      child: Container(
-                                                                                        color: Colors.white,
-                                                                                        //width: MediaQuery.of(context).size.width,
-                                                                                        padding: const EdgeInsets.only(left: 10, top: 2),
-                                                                                        height: MediaQuery.of(context).size.height / (constantesVitales.length * 2),
-                                                                                        child: Row(
-                                                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Flexible(
-                                                                                              flex: 1,
-                                                                                              child: Align(
-                                                                                                alignment: Alignment.centerLeft,
-                                                                                                child: Text(
-                                                                                                  constantesVitales[indexConstantesVitales],
+                                                                                  padding: const EdgeInsets.only(left: 25),
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.min,
+                                                                                    children: [
+                                                                                      Flexible(
+                                                                                        flex: 1,
+                                                                                        child: Container(
+                                                                                          color: Colors.white,
+                                                                                          //width: MediaQuery.of(context).size.width,
+                                                                                          padding: const EdgeInsets.only(left: 10, top: 2),
+                                                                                          height: MediaQuery.of(context).size.height / (constantesVitales.length * 2),
+                                                                                          child: Row(
+                                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Flexible(
+                                                                                                flex: 1,
+                                                                                                child: Align(
+                                                                                                  alignment: Alignment.centerLeft,
+                                                                                                  child: Text(
+                                                                                                    constantesVitales[indexConstantesVitales],
+                                                                                                  ),
                                                                                                 ),
                                                                                               ),
-                                                                                            ),
-                                                                                            Flexible(
-                                                                                              flex: 1,
-                                                                                              child: Align(
-                                                                                                alignment: Alignment.centerRight,
-                                                                                                child: Container(
-                                                                                                  width: 100,
-                                                                                                  height: 50,
-                                                                                                  color: Colors.grey[300],
-                                                                                                  margin: const EdgeInsets.only(right: 10, top: 10),
-                                                                                                  child: TextField(
-                                                                                                    
-                                                                                                    decoration: InputDecoration(
-                                                                                                      contentPadding: EdgeInsets.only(
-                                                                                                        left: 8,
+                                                                                              Flexible(
+                                                                                                flex: 1,
+                                                                                                child: Align(
+                                                                                                  alignment: Alignment.centerRight,
+                                                                                                  child: Container(
+                                                                                                    width: 100,
+                                                                                                    height: 50,
+                                                                                                    decoration: BoxDecoration(
+                                                                                                      color: Colors.grey[200],
+                                                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                                                    ),
+                                                                                                    margin: const EdgeInsets.only(right: 10, top: 10),
+                                                                                                    child: TextField(
+                                                                                                      decoration: InputDecoration(
+                                                                                                        contentPadding: EdgeInsets.only(
+                                                                                                          left: 8,
+                                                                                                        ),
+                                                                                                        border: InputBorder.none,
                                                                                                       ),
-                                                                                                      border: InputBorder.none,
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
                                                                                               ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              );
-                                                                              }
-
-                                                                              else {
-                                                                                return Padding(
-                                                                                padding: const EdgeInsets.only(left: 30, right: 25, top: 35),
-                                                                                child: Container(
-                                                                                  child: Column(
-                                                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                                                    children: [
-                                                                                      Padding(
-                                                                                        padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
-                                                                                        child: Align(
-                                                                                            alignment: Alignment.centerLeft,
-                                                                                            child: Text("Commentaires")),
-                                                                                      ),
-                                                                                      Container(
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: Colors.grey[300],
-                                                                                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                                        ),
-                                                                                        child: TextField(
-                                                                                          maxLines: 6,
-                                                                                          decoration: InputDecoration(
-                                                                                            border: InputBorder.none,
+                                                                                            ],
                                                                                           ),
                                                                                         ),
                                                                                       ),
                                                                                     ],
                                                                                   ),
-                                                                                ),
-                                                                              );
+                                                                                );
+                                                                              } else {
+                                                                                return Padding(
+                                                                                  padding: const EdgeInsets.only(left: 30, right: 25, top: 35),
+                                                                                  child: Container(
+                                                                                    child: Column(
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      children: [
+                                                                                        Padding(
+                                                                                          padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                                                                                          child: Align(alignment: Alignment.centerLeft, child: Text("Commentaires")),
+                                                                                        ),
+                                                                                        Container(
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: Colors.grey[200],
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                                          ),
+                                                                                          child: TextField(
+                                                                                            maxLines: 8,
+                                                                                            decoration: InputDecoration(
+                                                                                              contentPadding: EdgeInsets.only(
+                                                                                                          left: 8,
+                                                                                                          top: 15,
+                                                                                                          bottom: 8,
+                                                                                                        ),
+                                                                                              border: InputBorder.none,
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                );
                                                                               }
                                                                             }),
                                                                           ),
                                                                         ),
-
-                                                                        if (indexDialog == 2)
-                                                                          Expanded(
-                                                                            flex: 10,
-                                                                                  child: ListView(
-                                                                                    children: [
-                                                                                      Container(
-                                                                                        margin: const EdgeInsets.only(top: 10, left: 12),
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: Colors.grey[300],
-                                                                                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                                        ),
-                                                                                        child: TextField(
-                                                                                          maxLines: 22,
-                                                                                          decoration: InputDecoration(
-                                                                                            border: InputBorder.none,
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                      Padding(
-                                                                                        padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.min,
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                          children: List.generate(3, (indexValidationAction){
-                                                                                            return Flexible(
-                                                                                              flex: 1,
-                                                                                              child: SizedBox(
-                                                                                                width: 115,
-                                                                                                child: MaterialButton(
-                                                                                                  color: Colors.blue[300],
-                                                                                                  height: 55,
-                                                                                                  elevation: 0.0,
-                                                                                                  //padding: (indexValidationAction == 0) ? null : EdgeInsets.only(left: 5),
-                                                                                                  shape: RoundedRectangleBorder(
-                                                                                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                                                                                  ),
-                                                                                                  minWidth: MediaQuery.of(context).size.width,
-                                                                                                  onPressed: (){},
-                                                                                                  child: Text("data $indexValidationAction"),
-                                                                                                ),
-                                                                                              ),
-                                                                                            );
-                                                                                          },),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
+                                                                      if (indexDialog == 2)
+                                                                        Expanded(
+                                                                          flex: 10,
+                                                                          child: ListView(
+                                                                            children: [
+                                                                              Container(
+                                                                                margin: const EdgeInsets.only(top: 10, left: 12),
+                                                                                decoration: BoxDecoration(
+                                                                                  color: Colors.white,
+                                                                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                                ),
+                                                                                child: TextField(
+                                                                                  maxLines: 25,
+                                                                                  decoration: InputDecoration(
+                                                                                    border: InputBorder.none,
                                                                                   ),
                                                                                 ),
+                                                                              ),
+                                                                              Padding(
+                                                                                padding: const EdgeInsets.only(top: 20, bottom: 10, left: 5),
+                                                                                child: Row(
+                                                                                  mainAxisSize: MainAxisSize.min,
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: List.generate(
+                                                                                    3,
+                                                                                    (indexValidationAction) {
+                                                                                      return Flexible(
+                                                                                        flex: 1,
+                                                                                        child: SizedBox(
+                                                                                          width: 115,
+                                                                                          child: MaterialButton(
+                                                                                            color: actionButtonColor[indexValidationAction],
+                                                                                            height: 55,
+                                                                                            elevation: 0.0,
+                                                                                            
+                                                                                            shape: RoundedRectangleBorder(
+                                                                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                                                                            ),
+                                                                                            minWidth: MediaQuery.of(context).size.width,
+                                                                                            onPressed: () {
+                                                                                              switch (actionButtonValue[indexValidationAction]) {
+                                                                                                case "Annuler":
+                                                                                                  setState(() {
+                                                                                                    boolAddPatient = false;
+                                                                                                  });
+                                                                                                  break;
+                                                                                                case "Valider":
+                                                                                                   setState(() {});
+                                                                                                  break;
+                                                                                                case "Imprimer":
+                                                                                                   setState(() {});
+                                                                                                  break;
+                                                                                                default:
+                                                                                                  null;
+                                                                                              }
+                                                                                            },
+                                                                                            child: Text(actionButtonValue[indexValidationAction], style: TextStyle(
+                                                                                              color: Colors.white,
+                                                                                            ),),
+                                                                                          ),
+                                                                                        ),
+                                                                                      );
+                                                                                    },
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
                                                                     ],
                                                                   ),
                                                                 ),
@@ -630,24 +592,6 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                   ),
                                           ),
                                         ],
-                                      ),
-                                      Center(
-                                        child: Text("Bilan"),
-                                      ),
-                                      Center(
-                                        child: Text("Radiologies"),
-                                      ),
-                                      Center(
-                                        child: Text("Fichiers"),
-                                      ),
-                                      Center(
-                                        child: Text("Ordonnances"),
-                                      ),
-                                      Center(
-                                        child: Text("Rendez-vous"),
-                                      ),
-                                      Center(
-                                        child: Text("Payments"),
                                       ),
                                     ],
                                   ),
