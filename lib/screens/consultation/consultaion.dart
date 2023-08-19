@@ -176,13 +176,26 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                       height: MediaQuery.of(context).size.height,
                                                       width: 110,
                                                       child: MaterialButton(
-                                                        onPressed: (crudButtonAction[indexActionButtonRow] == "Ajouter")
-                                                            ? () {
-                                                                setState(() {
-                                                                  boolAddPatient = true;
-                                                                });
-                                                              }
-                                                            : () {},
+                                                        onPressed: (){
+                                                          switch (crudButtonAction[indexActionButtonRow]) {
+                                                            case "Ajouter":
+                                                              setState(() {
+                                                                boolAddPatient = true;
+                                                              });
+                                                              break;
+                                                            case "Modifier":
+                                                              setState(() {});
+                                                              break;
+                                                            case "Supprimer":
+                                                               setState(() {});
+                                                              break;
+                                                            case "Modifier":
+                                                               setState(() {});
+                                                              break;
+                                                            default:
+                                                            null;
+                                                          }
+                                                        },
                                                         color: crudButtonColor[indexActionButtonRow],
                                                         shape: RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
