@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:hospital_dashboard/models/boxes.dart';
+import 'package:hospital_dashboard/models/patients.dart';
 
 class Consultation extends StatefulWidget {
   const Consultation({Key? key}) : super(key: key);
@@ -10,7 +13,9 @@ class Consultation extends StatefulWidget {
 class _ConsultationState extends State<Consultation> with TickerProviderStateMixin {
   late TabController _tabController;
   bool boolAddPatient = false;
-  
+  String selectedValue = "Option 1";
+  late List<String> chooseOption = [];
+
   List<bool> checkBoxValue = [];
   List<String> formGroup = [
     'Antécédents',
@@ -54,9 +59,9 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
     'Imprimer',
   ];
   List<Color?> actionButtonColor = [
-     Colors.red,
-     Colors.green,
-     Colors.blueGrey.withOpacity(0.7),
+    Colors.red,
+    Colors.green,
+    Colors.blueGrey.withOpacity(0.7),
   ];
 
   List<IconData> tabBarIconValue = [
@@ -102,6 +107,19 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
 
   @override
   void initState() {
+
+    chooseOption = List.generate(boxPersonnes.length, (indexPatient){
+      Person person = boxPersonnes.getAt(indexPatient);
+      return person.nom.toString() + " " + person.prenom.toString();
+    });
+
+    if (chooseOption.isNotEmpty) {
+      selectedValue = chooseOption[0];
+    } else {
+      selectedValue = "Option";
+    }
+    print("ChooseOption : $chooseOption");
+
     _tabController = TabController(length: 8, vsync: this);
     checkBoxValue = List.generate(20, (index) => false);
     super.initState();
@@ -168,52 +186,153 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                             child: Container(
                                               color: Colors.white,
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                children: List.generate(4, (indexActionButtonRow) {
-                                                  return Padding(
-                                                    padding: const EdgeInsets.all(5.0),
-                                                    child: SizedBox(
-                                                      height: MediaQuery.of(context).size.height,
-                                                      width: 110,
-                                                      child: MaterialButton(
-                                                        onPressed: (){
-                                                          switch (crudButtonAction[indexActionButtonRow]) {
-                                                            case "Ajouter":
-                                                              setState(() {
-                                                                boolAddPatient = true;
-                                                              });
-                                                              break;
-                                                            case "Modifier":
-                                                              setState(() {});
-                                                              break;
-                                                            case "Supprimer":
-                                                               setState(() {});
-                                                              break;
-                                                            case "Modifier":
-                                                               setState(() {});
-                                                              break;
-                                                            default:
-                                                            null;
-                                                          }
-                                                        },
-                                                        color: crudButtonColor[indexActionButtonRow],
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                                        ),
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  if (boolAddPatient == true)
+                                                   Flexible(
+                                                    flex: 1,
+                                                       child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        mainAxisSize: MainAxisSize.max,
                                                           children: [
-                                                            Text(
-                                                              crudButtonAction[indexActionButtonRow],
-                                                              style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(left: 20, right: 15),
+                                                              child: Text("Choisir un patient", style: TextStyle(color: Colors.grey[900], fontWeight: FontWeight.bold),),
                                                             ),
-                                                            Icon(crudIconButton[indexActionButtonRow], color: Colors.white.withOpacity(0.8)),
-                                                          ],
-                                                        ),
-                                                      ),
+                                                            Padding(
+                                                             padding: const EdgeInsets.all(5.0),
+                                                             child: SizedBox(
+                                                              height: MediaQuery.of(context).size.height,
+                                                              width: 200,
+                                                               child: DropdownButtonHideUnderline(
+                                                                  child: DropdownButton2<String>(
+                                                                    //key: key,
+                                                                    isExpanded: true,
+                                                                    iconStyleData: IconStyleData(
+                                                                      iconSize: 35,
+                                                                      openMenuIcon: Icon(Icons.arrow_drop_up),
+                                                                      iconEnabledColor: Colors.white,
+                                                                    ),
+                                                                    value: selectedValue,
+                                                                    items: chooseOption.map((String item) {
+                                                                      return DropdownMenuItem<String>(
+                                                                        value: item,
+                                                                        child: Text(
+                                                                          item,
+                                                                          style: const TextStyle(
+                                                                            fontSize: 14,
+                                                                            fontWeight: FontWeight.bold,
+                                                                            color: Colors.white,
+                                                                          ),
+                                                                          overflow: TextOverflow.ellipsis,
+                                                                        ),
+                                                                      );
+                                                                    }).toList(),
+                                                                    //--------------------------------------------------------------------//
+                                                                    //  Ecoute des changements dans notre liste selective de page & menu  //
+                                                                    //--------------------------------------------------------------------//
+                                                                    onChanged: (value){
+                                                                      setState(() {
+                                                                        selectedValue = value!;
+                                                                      });
+                                                                    },
+                                                                    //--------------------------------------------------------------------//
+                                                                    //   Les styles à appliquer sur notre liste selective de page & menu  //
+                                                                    //--------------------------------------------------------------------//
+                                                                    buttonStyleData: ButtonStyleData(
+                                                                      
+                                                                      width: 110,
+                                                                      padding: const EdgeInsets.only(left: 14, right: 14),
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(20),
+                                                                        border: Border.all(
+                                                                          color: Colors.black26,
+                                                                        ),
+                                                                        color: Color(0xFF2DAAB8).withOpacity(0.7),
+                                                                      ),
+                                                                      elevation: 2,
+                                                                    ),
+                                                                    
+                                                                    dropdownStyleData: DropdownStyleData(
+                                                                      maxHeight: 200,
+                                                                      width: 200,
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(14),
+                                                                        color: Color(0xFF2DAAB8).withOpacity(0.9),
+                                                                      ),
+                                                                      offset: const Offset(-20, 0),
+                                                                      scrollbarTheme: ScrollbarThemeData(
+                                                                        radius: const Radius.circular(40),
+                                                                        thickness: MaterialStateProperty.all<double>(6),
+                                                                        thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                                                      ),
+                                                                    ),
+                                                                    menuItemStyleData: const MenuItemStyleData(
+                                                                      height: 40,
+                                                                      padding: EdgeInsets.only(left: 14, right: 14),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                             ),
+                                                           ),
+                                                         ],
+                                                       ),
+                                                     ),
+                                                   
+                                                  Flexible(
+                                                    flex: 1,
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: List.generate(4, (indexActionButtonRow) {
+                                                        return Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.all(5.0),
+                                                              child: SizedBox(
+                                                                height: MediaQuery.of(context).size.height,
+                                                                width: 110,
+                                                                child: MaterialButton(
+                                                                  onPressed: () {
+                                                                    switch (crudButtonAction[indexActionButtonRow]) {
+                                                                      case "Ajouter":
+                                                                        setState(() {
+                                                                          boolAddPatient = true;
+                                                                        });
+                                                                        break;
+                                                                      case "Modifier":
+                                                                        setState(() {});
+                                                                        break;
+                                                                      case "Supprimer":
+                                                                        setState(() {});
+                                                                        break;
+                                                                      case "Modifier":
+                                                                        setState(() {});
+                                                                        break;
+                                                                      default:
+                                                                        null;
+                                                                    }
+                                                                  },
+                                                                  color: crudButtonColor[indexActionButtonRow],
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    children: [
+                                                                      Text(
+                                                                        crudButtonAction[indexActionButtonRow],
+                                                                        style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                                                                      ),
+                                                                      Icon(crudIconButton[indexActionButtonRow], color: Colors.white.withOpacity(0.8)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                      }),
                                                     ),
-                                                  );
-                                                }),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
@@ -274,11 +393,12 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                                               mainAxisAlignment: MainAxisAlignment.center,
                                                                               children: <Widget>[
                                                                                 Checkbox(
-                                                                                  value: checkBoxValue[indexDataRows], onChanged: (onChangedValue){
+                                                                                    value: checkBoxValue[indexDataRows],
+                                                                                    onChanged: (onChangedValue) {
                                                                                       setState(() {
                                                                                         checkBoxValue[indexDataRows] = !checkBoxValue[indexDataRows];
                                                                                       });
-                                                                                  }),
+                                                                                    }),
                                                                               ],
                                                                             ),
                                                                           ),
@@ -404,10 +524,10 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                                                           maxLines: 6,
                                                                                           decoration: InputDecoration(
                                                                                             contentPadding: EdgeInsets.only(
-                                                                                                          left: 8,
-                                                                                                          top: 10,
-                                                                                                           bottom: 8,
-                                                                                                        ),
+                                                                                              left: 8,
+                                                                                              top: 10,
+                                                                                              bottom: 8,
+                                                                                            ),
                                                                                             border: InputBorder.none,
                                                                                           ),
                                                                                         ),
@@ -499,10 +619,10 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                                                             maxLines: 8,
                                                                                             decoration: InputDecoration(
                                                                                               contentPadding: EdgeInsets.only(
-                                                                                                          left: 8,
-                                                                                                          top: 15,
-                                                                                                          bottom: 8,
-                                                                                                        ),
+                                                                                                left: 8,
+                                                                                                top: 15,
+                                                                                                bottom: 8,
+                                                                                              ),
                                                                                               border: InputBorder.none,
                                                                                             ),
                                                                                           ),
@@ -549,7 +669,6 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                                                             color: actionButtonColor[indexValidationAction],
                                                                                             height: 55,
                                                                                             elevation: 0.0,
-                                                                                            
                                                                                             shape: RoundedRectangleBorder(
                                                                                               borderRadius: BorderRadius.all(Radius.circular(5.0)),
                                                                                             ),
@@ -562,18 +681,21 @@ class _ConsultationState extends State<Consultation> with TickerProviderStateMix
                                                                                                   });
                                                                                                   break;
                                                                                                 case "Valider":
-                                                                                                   setState(() {});
+                                                                                                  setState(() {});
                                                                                                   break;
                                                                                                 case "Imprimer":
-                                                                                                   setState(() {});
+                                                                                                  setState(() {});
                                                                                                   break;
                                                                                                 default:
                                                                                                   null;
                                                                                               }
                                                                                             },
-                                                                                            child: Text(actionButtonValue[indexValidationAction], style: TextStyle(
-                                                                                              color: Colors.white,
-                                                                                            ),),
+                                                                                            child: Text(
+                                                                                              actionButtonValue[indexValidationAction],
+                                                                                              style: TextStyle(
+                                                                                                color: Colors.white,
+                                                                                              ),
+                                                                                            ),
                                                                                           ),
                                                                                         ),
                                                                                       );
